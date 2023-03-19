@@ -1,10 +1,13 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import pickle
 from flask_cors import CORS, cross_origin
 import re
 import boto3
 import os
 import json
+from PIL import Image
+from io import BytesIO
+import numpy as np
 
 app = Flask(__name__)
 cors = CORS(app, resources={r'/api/*': {'origins': '*'}})
@@ -64,6 +67,26 @@ def predict():
     else:
         return ("4")
 
+@app.route('/pneumonia', methods=['POST'])
+@cross_origin(origin='*')
+def detect_pneumonia():
+    img_file = request.files['image']
+    img = Image.open(BytesIO(img_file.read()))
+
+    img = img.resize((150, 150))
+    img = np.array(img)
+    img = np.expand_dims(img, axis=0)
+    img = img/255.0
+
+    pred = model.predict(img)[0]
+
+    if pred > 0.5:
+        prediction = 'pneumonia'
+    else:
+        prediction = 'normal'
+
+    # Return the prediction as a JSON object
+    return jsonify({'prediction': prediction})
 
 @app.route('/ocr', methods=['POST'])
 @cross_origin(origin='*')
