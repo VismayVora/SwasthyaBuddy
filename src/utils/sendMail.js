@@ -8,7 +8,7 @@ const mailSender = async (res, receiver, subject, template) => {
       service: "gmail",
       auth: {
         user: "shahmanan170602@gmail.com",
-        pass: "khudkadaalobhai",
+        pass: "cjpbovwuclmlsduv",
       },
       from: "shahmanan170602@gmail.com",
     });
