@@ -8,7 +8,7 @@ RUN pip install --upgrade pip
 
 RUN pip install -r requirements.txt
 
-EXPOSE 5001 
+EXPOSE 8080 
 
 ENTRYPOINT [ "python" ] 
 
