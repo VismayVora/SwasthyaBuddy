@@ -22,7 +22,7 @@ const PredictSeverity = () => {
   const [severity, setSeverity] = useState("");
   const getPrediction = async () => {
     const response = await axios.post(
-      "http://127.0.0.1:5000/predict",
+      "https://istart-ml-yfdjbh463q-uc.a.run.app/predict",
       inputData
     );
     console.log(response.data);
