@@ -1,3 +1,4 @@
+const axios = require("axios");
 const Report = require("../models/report.model");
 const {
   HttpApiResponse,
@@ -35,4 +36,29 @@ async function getPatientReports(req, res) {
   }
 }
 
-module.exports = { getDoctorReports, getPatientReports };
+//get hospitals
+async function getHospitals(req, res) {
+  const { lat, lng } = req.body;
+  let config = {
+    method: "get",
+    maxBodyLength: Infinity,
+    url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat}%2C${lng}&radius=1500&type=hospital&key=AIzaSyBJW5dQc0jq1gajvy7MkH1JmxYRgHgCTk4`,
+    headers: {
+      Accept: "application/json",
+    },
+  };
+
+  axios
+    .request(config)
+    .then((response) => {
+      // console.log(JSON.stringify(response.data));
+      res.send(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.send(error);
+    });
+
+}
+
+module.exports = { getDoctorReports, getPatientReports, getHospitals };
