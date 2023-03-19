@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 // b918a4a88b91461cbb5923734af9c509
 const API_KEY = "b918a4a88b91461cbb5923734af9c509";
-const query = "Chronic Obstructive Pulmonary Disease";
-const api_url = `https://newsapi.org/v2/everything?q=${query}&from=2022-11-15&sortBy=popularity&apiKey=${API_KEY}`;
+const query = "Bitcoin";
+const api_url = `https://newsapi.org/v2/everything?q=${query}&from=2023-03-19&sortBy=popularity&apiKey=${API_KEY}`;
 
 const Blogs = () => {
   const [blogData, setBlogData] = useState([]);
@@ -13,6 +13,7 @@ const Blogs = () => {
 
   const getBlogData = async () => {
     const response = await axios.get(api_url);
+    console.log(response);
     setBlogData(response.data.articles.slice(0, 5));
     console.log(response.data.articles.slice(0, 5));
   };

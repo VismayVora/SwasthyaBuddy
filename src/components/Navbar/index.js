@@ -41,32 +41,39 @@ const Navbar = (props) => {
               Reports
             </a>
           </>
-        ) : (
+        ) : null}
+
+        {type === "doctor" ? (
           <>
             <a href="/patientlist" className="text-lg font-semibold pl-10">
               Patient List
             </a>
           </>
-        )}
+        ) : null}
 
         <a href="/acidbase" className="text-lg font-semibold pl-10">
           Disorder Test
         </a>
-
+        <a href="/maps" className="text-lg font-semibold pl-10">
+          Center Locator
+        </a>
         {type === "patient" ? (
           <>
             <a href="/predict-severity" className="text-lg font-semibold pl-10">
               COPD Test
             </a>
           </>
-        ) : (
-          <>
-            <a href="/dashboard" className="text-lg font-semibold pl-10">
-              Dashboard
-            </a>
-          </>
-        )}
+        ) : null}
       </div>
+
+      {type === "doctor" ? (
+        <>
+          <a href="/dashboard" className="text-lg font-semibold pl-10">
+            Dashboard
+          </a>
+        </>
+      ) : null}
+
       <div>
         <button
           className="font-bold text-white bg-[#3A8EF6] px-8 py-2 rounded "
