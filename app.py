@@ -68,7 +68,6 @@ def predict():
 @cross_origin(origin='*')
 def getValues():
     file = request.files.get("myfile")
-    # file = open("abgreport3.jpg", "rb")
     binaryFile = file.read()
 
     response = textractclient.detect_document_text(
