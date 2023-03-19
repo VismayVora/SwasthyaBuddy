@@ -8,7 +8,7 @@ const PatientList = () => {
   const navigate = useNavigate();
   const [patients, setPatients] = useState(undefined);
 
-  const API_URL = "https://uia-antons-server.herokuapp.com/api/reports/doctor";
+  const API_URL = "http://localhost:4000/api/reports/doctor";
 
   useEffect(() => {
     const email = localStorage.getItem("email");
@@ -40,16 +40,30 @@ const PatientList = () => {
       <Navbar value="Sign-out" />
       <div className="m-5">
         <h6 className="text-5xl font-bold text-[#1678F2] my-5">Patients:</h6>
-
+        <div className="shadow-sm p-3 flex justify-between">
+          <h3 className="font-bold">Name</h3>
+          <h3 className="font-bold">Patient Contact</h3>
+          <h3 className="font-bold">Disorder</h3>
+        </div>
         {patients?.length > 0 ? (
           patients.map((user) => (
             <div key={user._id}>
               <div
-                className="shadow-sm p-3 flex justify-between"
+                className="shadow-sm p-3 flex justify-between cursor-pointer"
                 onClick={() => handlePatient(user)}
               >
                 <h3>{user.patient_name}</h3>
                 <h3>{user.patient_email}</h3>
+                <h3
+                  style={{
+                    width: "50ch",
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {user.disorder}
+                </h3>
               </div>
             </div>
           ))

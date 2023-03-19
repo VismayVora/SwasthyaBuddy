@@ -173,7 +173,7 @@ const AcidBaseDisorder = () => {
       Lactate: lactate,
       patient_name: patientName,
       patient_email: patientEmail,
-      ref_doctor_email: "atharvakinikar@gmail.com",
+      ref_doctor_email: "shahmanan170602@gmail.com",
     });
     const response = await axios.post(API_URL, {
       pH: parseFloat(pH),
@@ -187,7 +187,7 @@ const AcidBaseDisorder = () => {
       Lactate: parseFloat(lactate),
       patient_name: patientName,
       patient_email: patientEmail,
-      ref_doctor_email: localStorage.getItem("email"),
+      ref_doctor_email: "shahmanan170602@gmail.com",
     });
     console.log(response);
     console.log(Object.keys(report).length);

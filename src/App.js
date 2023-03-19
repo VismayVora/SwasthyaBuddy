@@ -16,6 +16,7 @@ import PredictSeverity from "./pages/PredictSeverity";
 import OCR from "./pages/OCR";
 import Otp from "./pages/Login/Otp";
 import PatientList from "./pages/PatientList/PatientList";
+import Dashboard from "./pages/Dashboard/Dashboard";
 function App() {
   return (
     <div className="App">
@@ -34,6 +35,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/maps" element={<Maps />} />
           <Route path="/predict-severity" element={<PredictSeverity />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="ocr" element={<OCR />} />
           <Route path="/" element={<Home />} />
         </Routes>
