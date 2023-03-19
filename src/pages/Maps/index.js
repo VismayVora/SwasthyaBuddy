@@ -1,26 +1,38 @@
 import React, { useEffect, useState } from "react";
-import Map, { GeolocateControl, Marker } from "react-map-gl";
+import Map, { FullscreenControl, GeolocateControl, Marker, NavigationControl, Popup } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Navbar from "../../components/Navbar";
 import axios from "axios";
+import qs from "qs";
+
 const Maps = () => {
   const [location, setLocation] = useState(null);
+  const [hospitals, setHospitals] = useState(null);
+  const [hospital, setHospital] = useState(null);
   useEffect(() => {
     if (location) {
       const { latitude, longitude } = location?.coords;
 
+      let data = qs.stringify({
+        lat: latitude,
+        lng: longitude,
+      });
+
       let config = {
-        method: "get",
-        maxBodyLength: 10,
-        url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${longitude}%2C${latitude}&radius=1500&type=hospital&key=AIzaSyCSEmsgk2E8Lcq-w_vKCW4eEVAihs6ukeY`,
+        method: "post",
+        maxBodyLength: Infinity,
+        url: "http://localhost:4000/api/reports/hospital",
         headers: {
-          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
+        data: data,
       };
 
-      axios(config)
+      axios
+        .request(config)
         .then((response) => {
-          console.log(JSON.stringify(response.data));
+          console.log(response.data.results);
+          setHospitals(response.data.results);
         })
         .catch((error) => {
           console.log(error);
@@ -44,18 +56,46 @@ const Maps = () => {
         >
           <GeolocateControl
             positionOptions={{ enableHighAccuracy: true }}
-            trackUserLocation={true}
+            // trackUserLocation={true}
             onGeolocate={(viewport) => {
               setLocation(viewport);
             }}
           />
-          {location && (
-            <Marker
-              longitude={location?.coords.longitude}
-              latitude={location?.coords.latitude}
+          <FullscreenControl position="top-left" />
+          <NavigationControl position="top-left" />
+          {hospitals &&
+            hospitals.map((hos) => (
+              <Marker
+                longitude={hos.geometry.location.lng}
+                latitude={hos.geometry.location.lat}
+                anchor="bottom"
+                onClick={(e) => {
+                  e.originalEvent.stopPropagation();
+                  console.log(hos);
+                  setHospital(hos);
+                }}
+              >
+                <div className="bg-red-500 rounded-full h-4 w-4 p-1">
+                  <img src={hos.icon} />
+                </div>
+              </Marker>
+            ))}
+          {hospital && (
+            <Popup
+              anchor="top"
+              latitude={hospital.geometry.location.lat}
+              longitude={hospital.geometry.location.lng}
+              closeButton={true}
+              onClose={() => setHospital(null)}
             >
-              <div className="bg-red-500 rounded-full h-4 w-4"></div>
-            </Marker>
+              <h1 className="text-lg font-bold">{hospital.name}</h1>
+              <h1 className="text-xs">{hospital.vicinity}</h1>
+              {hospital.photos && hospital.photos[0]?.html_attributions.map(
+                (attr) => (
+                  <div className="text-blue-700" dangerouslySetInnerHTML={{ __html: attr }} />
+                )
+              )}
+            </Popup>
           )}
         </Map>
       </div>
