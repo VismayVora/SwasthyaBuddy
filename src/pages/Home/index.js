@@ -64,7 +64,7 @@ const Home = () => {
             </div>
             <div className="mt-8">
               <h1 className="text-5xl font-bold text-[#1678F2]">
-                One Step Solution
+                One Stop Solution
               </h1>
               <h1 className="text-3xl font-bold mt-2">
                 For all your queries regarding
