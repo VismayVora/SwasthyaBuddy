@@ -28,7 +28,7 @@ const mailSender = async (res, receiver, subject, template) => {
         console.log("response:", info.response, "message:", info.messageId);
         return res.status(250).json({
           success: true,
-          message: `Email sent to ${receiver} succesfully!`,
+          message: `Email sent to ${receiver} succesfully`,
         });
       }
     );
