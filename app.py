@@ -12,8 +12,8 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.secret_key = 'jose'
 
-textractclient = boto3.client("textract", aws_access_key_id="AKIAZAYMJOZBYOSZKWOP",
-                              aws_secret_access_key="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", region_name="ap-south-1")
+textractclient = boto3.client("textract", aws_access_key_id="",
+                              aws_secret_access_key="", region_name="ap-south-1")
 
 
 @app.after_request
